@@ -6,9 +6,11 @@ import {
 import ConversationItem from '../../components/ConversationItem';
 import { getRandomInt, getRandomBool } from '../../helpers/random';
 import { Divider } from 'react-native-paper';
+import { useState } from 'react';
 
 function Home({ navigation }) {
 
+    //For randomly generationg texts
     const online = ['John Doe', 'Android'];
     const images = [
         'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?crop=entropy&cs=srgb&dl=adult-beard-boy-casual-220453.jpg&fit=crop&fm=jpg&h=959&w=640',
@@ -19,11 +21,12 @@ function Home({ navigation }) {
     const names = ['John Doe', 'Anonymous', 'Foo Bar', 'John Appleseed', 'Android'];
     const texts = ['How r u?', 'Dinner at 8', 'Will be late for meeting', 'O Brother where art thou?']
 
-    const conversations = [];
+    const [conversations, setConversations] = useState([]);
 
     useEffect(() => {
+        let conv = [];
         for (let i = 0; i < 15; i++) {
-            conversations.push({
+            conv.push({
                 id: String(i),
                 image: images[getRandomInt(4)],
                 name: names[getRandomInt(5)],
@@ -32,6 +35,7 @@ function Home({ navigation }) {
                 isRead: getRandomBool()
             })
         }
+        setConversations(conv)
     }, []) //Only runs once at component mount
 
     function _goToDetail(item){
